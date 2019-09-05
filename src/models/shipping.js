@@ -1,7 +1,7 @@
 const Framework = require('pseudonym.node.ecommerce.library.framework');
-const dataStore = new Framework.Data.FileDataStore('${{servicename_lowercase}}');
+const dataStore = new Framework.Data.FileDataStore('shipping');
 
-module.exports = class ${{servicename_nonplural}} extends Framework.Models.DataModel
+module.exports = class Shipping extends Framework.Models.DataModel
 {
     constructor(name) {
         super();
@@ -24,16 +24,16 @@ module.exports = class ${{servicename_nonplural}} extends Framework.Models.DataM
     }
 
     static FetchAll(callback) {
-        return dataStore.FetchAll(${{servicename_nonplural}}.Mapper, callback);
+        return dataStore.FetchAll(Shipping.Mapper, callback);
     }
 
     static Fetch(id, callback) {
-        return dataStore.Fetch(id, ${{servicename_nonplural}}.Mapper, callback);
+        return dataStore.Fetch(id, Shipping.Mapper, callback);
     }
 
     static Mapper(rawJson) {
         const dataObj = JSON.parse(rawJson);
-        const obj = new ${{servicename_nonplural}}(obj.name);
+        const obj = new Shipping(obj.name);
         obj.Id = dataObj.id;
         return obj;
     }
