@@ -46,7 +46,9 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         this.Put('/shipping', (request, response, next) => {
 
             const newShipping = new Shipping(
-                request.body.name);
+                request.body.name,
+                request.body.window,
+                request.body.price);
         
             newShipping.Save((data, err) => {
                 if (err !== undefined) { return next(err); }
@@ -68,6 +70,8 @@ module.exports = class ShippingController extends Framework.Service.Controller {
                 if (err !== undefined) { return next(err); }
                 
                 shipping.Name = request.body.name;
+                shipping.Window = request.body.window;
+                shipping.Price = request.body.price;
         
                 shipping.Save((data, err) => {
                     if (err !== undefined) { 

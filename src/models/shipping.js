@@ -3,16 +3,35 @@ const dataStore = new Framework.Data.FileDataStore('shipping');
 
 module.exports = class Shipping extends Framework.Models.DataModel
 {
-    constructor(name) {
+    constructor(name, window, price) {
         super();
         this.name = name;
+        this.window = window;
+        this.price = parseFloat(price);
     }
+
     get Name() {
         return this.name;
     }
 
     set Name(value) {
         return this.name = value;
+    }
+
+    get Window() {
+        return this.window;
+    }
+
+    set Window(value) {
+        return this.window = value;
+    }
+
+    get Price() {
+        return this.price;
+    }
+
+    set Price(value) {
+        return this.price = parseFloat(value);
     }
 
     Delete(callback) {
@@ -33,7 +52,7 @@ module.exports = class Shipping extends Framework.Models.DataModel
 
     static Mapper(rawJson) {
         const dataObj = JSON.parse(rawJson);
-        const obj = new Shipping(obj.name);
+        const obj = new Shipping(dataObj.name, dataObj.window, dataObj.price);
         obj.Id = dataObj.id;
         return obj;
     }
