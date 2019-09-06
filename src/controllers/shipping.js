@@ -22,29 +22,6 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         });
 
         this.Post('/shipping', (request, response, next) => {
-            const shippingIds = request.body;
-        
-            if (shippingIds.length === 0) { 
-                return response.BadRequest('Body did not contain an shipping Ids.');
-            }
-            
-            Shipping.FetchAll((data, err) => {
-                if (err !== undefined) { return next(err); }
-        
-                const filteredshipping = data.filter(p => shippingIds.includes(p.Id));
-                const unfoundIds = shippingIds.filter(id => !filteredshipping.map(p => p.Id).includes(id));
-        
-                if (unfoundIds.length > 0) {
-                    response.Partial(filteredshipping, unfoundIds.map(id => `No shipping was found for supplied Id '${id}'`));
-                }
-                else {
-                    response.Ok(filteredshipping);
-                }
-            });
-        });
-
-        this.Put('/shipping', (request, response, next) => {
-
             const newShipping = new Shipping(
                 request.body.name,
                 request.body.window,
@@ -93,7 +70,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
             Shipping.Fetch(id, (shipping, err) => {
                 if (err !== undefined) { return next(err); }
                 
-                Shipping.Delete((existed, err) => {
+                shipping.Delete((existed, err) => {
                     if (err !== undefined && existed) { 
                         return next(err); 
                     }
