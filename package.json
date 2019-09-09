@@ -1,6 +1,6 @@
 {
     "name": "pseudonym.node.ecommerce.service.shipping",
-    "version": "1.0.0-alpha",
+    "version": "1.0.2-alpha",
     "description": "RESTful API compliant Micro-service for managing shipping services in node.js",
     "main": "src/app.js",
     "scripts": {
