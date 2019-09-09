@@ -1,7 +1,14 @@
+const path = require('path');
+
 const Framework = require('pseudonym.node.ecommerce.library.framework');
 const ShippingController = require('./controllers/shipping');
 
 const serviceRunner = new Framework.Service.Runner('Shipping Service');
+
+serviceRunner.RegisterInfoHealthCheck(new Framework.Service.FileSystemAccessHealthCheck([
+    __dirname,
+    path.join(__dirname, 'data', 'shipping')
+]));
 
 serviceRunner.RegisterController('/api', new ShippingController());
 
