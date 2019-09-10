@@ -1,4 +1,7 @@
 {
     "verbose": false,
-    "ignore": ["src/data/shipping/*"]
+    "ignore": [
+        "src/data/shipping/*",
+        "appsettings.json"
+    ]
 }
