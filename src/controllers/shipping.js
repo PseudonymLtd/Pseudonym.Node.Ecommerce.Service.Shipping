@@ -30,7 +30,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
             newShipping.Save((data, err) => {
                 if (err !== undefined) { return next(err); }
         
-                this.Logger.info(`Added new shipping:`);
+                this.Logger.Info(`Added new shipping:`);
                 console.info(newShipping);
         
                 return response.Ok(newShipping, {
@@ -55,7 +55,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
                         return next(err); 
                     }
                     else {
-                        this.Logger.info('updated shipping:');
+                        this.Logger.Info('updated shipping:');
                         console.info(data);
         
                         return response.Ok(data);
@@ -80,7 +80,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
                         });
                     }
                     else {
-                        this.Logger.info(`removed shipping:`);
+                        this.Logger.Info(`removed shipping:`);
                         console.info(shipping);
         
                         return response.Ok(shipping);
