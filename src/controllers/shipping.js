@@ -17,7 +17,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         });
 
         this.Get('/shipping/:id', (request, response, next) => {
-            Shipping.FetchById(id, (data, err) => {
+            Shipping.FetchById(request.params.id, (data, err) => {
                 if (err !== undefined) { 
                     return next(err); 
                 }
@@ -53,7 +53,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         });
 
         this.Put('/shipping/:id', (request, response, next) => {
-            Shipping.FetchById(id, (shipping, err) => {
+            Shipping.FetchById(request.params.id, (shipping, err) => {
                 if (err !== undefined) { return next(err); }
                 
                 shipping.Name = request.body.name;
@@ -75,7 +75,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         });
 
         this.Delete('/shipping/:id', (request, response, next) => {
-            Shipping.FetchById(id, (shipping, err) => {
+            Shipping.FetchById(request.params.id, (shipping, err) => {
                 if (err !== undefined) { return next(err); }
                 
                 shipping.Delete((existed, err) => {

@@ -1,4 +1,5 @@
 const Framework = require('pseudonym.node.ecommerce.library.framework');
+const collectionName = 'Shipping';
 
 module.exports = class Shipping extends Framework.Models.DataModel
 {
@@ -34,10 +35,14 @@ module.exports = class Shipping extends Framework.Models.DataModel
     }
 
     static Map(dataObj) {
-        return new Shipping(dataObj._name, dataObj._window, dataObj._price, dataObj._id);
+        return new Shipping(dataObj._name, dataObj._window, dataObj._price, dataObj._id.toString());
     }
 
     static get CollectionName() {
-        return 'Shipping';
+        return collectionName;
+    }
+
+    get CollectionName() {
+        return collectionName;
     }
 }
