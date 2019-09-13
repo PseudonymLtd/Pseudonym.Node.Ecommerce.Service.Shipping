@@ -7,21 +7,33 @@ module.exports = class ShippingController extends Framework.Service.Controller {
 
         this.Get('/shipping', (request, response, next) => {
             Shipping.FetchAll((data, err) => {
-                if (err !== undefined) { return next(err); }
-                response.Ok(data);
+                if (err !== undefined) { 
+                    return next(err); 
+                }
+                else {
+                    return response.Ok(data);
+                }
             });
         });
 
         this.Get('/shipping/:id', (request, response, next) => {
-            var id = parseInt(request.params.id);
-        
-            Shipping.Fetch(id, (data, err) => {
-                if (err !== undefined) { return next(err); }
-                response.Ok(data);
+            Shipping.FetchById(id, (data, err) => {
+                if (err !== undefined) { 
+                    return next(err); 
+                }
+                else if (data === null) {
+                    return response.BadRequest(`A Shipping Service with an id of '${request.params.id}' does not exist in the database.`, {
+                        suppliedId: request.params.id
+                    });
+                }
+                else {
+                    return response.Ok(data);
+                }
             });
         });
 
         this.Post('/shipping', (request, response, next) => {
+
             const newShipping = new Shipping(
                 request.body.name,
                 request.body.window,
@@ -41,9 +53,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         });
 
         this.Put('/shipping/:id', (request, response, next) => {
-            var id = parseInt(request.params.id);
-        
-            Shipping.Fetch(id, (shipping, err) => {
+            Shipping.FetchById(id, (shipping, err) => {
                 if (err !== undefined) { return next(err); }
                 
                 shipping.Name = request.body.name;
@@ -65,9 +75,7 @@ module.exports = class ShippingController extends Framework.Service.Controller {
         });
 
         this.Delete('/shipping/:id', (request, response, next) => {
-            var id = parseInt(request.params.id);
-        
-            Shipping.Fetch(id, (shipping, err) => {
+            Shipping.FetchById(id, (shipping, err) => {
                 if (err !== undefined) { return next(err); }
                 
                 shipping.Delete((existed, err) => {

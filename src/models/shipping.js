@@ -1,59 +1,43 @@
 const Framework = require('pseudonym.node.ecommerce.library.framework');
-const dataStore = new Framework.Data.FileDataStore('shipping');
 
 module.exports = class Shipping extends Framework.Models.DataModel
 {
-    constructor(name, window, price) {
-        super();
-        this.name = name;
-        this.window = window;
-        this.price = parseFloat(price);
+    constructor(name, window, price, id) {
+        super(id);
+        this._name = name;
+        this._window = window;
+        this._price = parseFloat(price);
     }
 
     get Name() {
-        return this.name;
+        return this._name;
     }
 
     set Name(value) {
-        return this.name = value;
+        return this._name = value;
     }
 
     get Window() {
-        return this.window;
+        return this._window;
     }
 
     set Window(value) {
-        return this.window = value;
+        return this._window = value;
     }
 
     get Price() {
-        return this.price;
+        return this._price;
     }
 
     set Price(value) {
-        return this.price = parseFloat(value);
+        return this._price = parseFloat(value);
     }
 
-    Delete(callback) {
-        return dataStore.Delete(this.Id, callback);
+    static Map(dataObj) {
+        return new Shipping(dataObj._name, dataObj._window, dataObj._price, dataObj._id);
     }
 
-    Save(callback) {
-        return dataStore.Save(this.Id, this, callback);
-    }
-
-    static FetchAll(callback) {
-        return dataStore.FetchAll(Shipping.Mapper, callback);
-    }
-
-    static Fetch(id, callback) {
-        return dataStore.Fetch(id, Shipping.Mapper, callback);
-    }
-
-    static Mapper(rawJson) {
-        const dataObj = JSON.parse(rawJson);
-        const obj = new Shipping(dataObj.name, dataObj.window, dataObj.price);
-        obj.Id = dataObj.id;
-        return obj;
+    static get CollectionName() {
+        return 'Shipping';
     }
 }
