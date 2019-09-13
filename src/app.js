@@ -5,11 +5,6 @@ const ShippingController = require('./controllers/shipping');
 
 const serviceRunner = new Framework.Service.Runner('Shipping Service');
 
-serviceRunner.RegisterInfoHealthCheck(new Framework.Service.FileSystemAccessHealthCheck([
-    __dirname,
-    path.join(__dirname, '..', 'appsettings.json')
-]));
-
 serviceRunner.RegisterController('/api', new ShippingController());
 
 serviceRunner.RegisterPostProcessor((request, response, complete) => {
